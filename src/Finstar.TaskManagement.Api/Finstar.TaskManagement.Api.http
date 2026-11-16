@@ -1,0 +1,6 @@
+@Finstar.TaskManagement.Api_HostAddress = http://localhost:5043
+
+GET {{Finstar.TaskManagement.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
