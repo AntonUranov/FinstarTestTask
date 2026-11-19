@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finstar.TaskManagement.Api", "Finstar.TaskManagement.Api\Finstar.TaskManagement.Api.csproj", "{538B2103-2D9B-4FA6-A2CD-E14A307F68A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finstar.TaskManagement.Dal", "Finstar.TaskManagement.Dal\Finstar.TaskManagement.Dal.csproj", "{37E78D5C-33EE-41A9-8CD3-710995E3D931}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finstar.TaskManagement.Models", "Finstar.TaskManagement.Models\Finstar.TaskManagement.Models.csproj", "{FCD5C3DD-2BF5-45B4-994A-F947C91534B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finstar.TaskManagement.ChangeTracker", "Finstar.TaskManagement.ChangeTracker\Finstar.TaskManagement.ChangeTracker.csproj", "{8374B426-041F-4617-A488-347D1098832E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finstar.TaskManagement.ChangeTracker.Contracts", "Finstar.TaskManagement.ChangeTracker.Contracts\Finstar.TaskManagement.ChangeTracker.Contracts.csproj", "{5EFE5E9D-884D-4D4D-B74C-D2B525432390}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{538B2103-2D9B-4FA6-A2CD-E14A307F68A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{538B2103-2D9B-4FA6-A2CD-E14A307F68A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{538B2103-2D9B-4FA6-A2CD-E14A307F68A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{538B2103-2D9B-4FA6-A2CD-E14A307F68A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37E78D5C-33EE-41A9-8CD3-710995E3D931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37E78D5C-33EE-41A9-8CD3-710995E3D931}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37E78D5C-33EE-41A9-8CD3-710995E3D931}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37E78D5C-33EE-41A9-8CD3-710995E3D931}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCD5C3DD-2BF5-45B4-994A-F947C91534B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCD5C3DD-2BF5-45B4-994A-F947C91534B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCD5C3DD-2BF5-45B4-994A-F947C91534B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCD5C3DD-2BF5-45B4-994A-F947C91534B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8374B426-041F-4617-A488-347D1098832E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8374B426-041F-4617-A488-347D1098832E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8374B426-041F-4617-A488-347D1098832E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8374B426-041F-4617-A488-347D1098832E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EFE5E9D-884D-4D4D-B74C-D2B525432390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EFE5E9D-884D-4D4D-B74C-D2B525432390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EFE5E9D-884D-4D4D-B74C-D2B525432390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EFE5E9D-884D-4D4D-B74C-D2B525432390}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,165 @@
+name: finstar-taskmanagement
+
+x-dotnet-common: &dotnet-common
+  restart: unless-stopped
+  networks: [finstar]
+
+services:
+  postgres-taskmanagement:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: helloagain
+      POSTGRES_DB: finstar_taskmanagement
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-taskmanagement-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d finstar_taskmanagement"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks: [finstar]
+
+  postgres-changetracker:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: helloagain
+      POSTGRES_DB: finstar_change_tracker
+    ports:
+      - "5433:5432"   # на хосте 5433, внутри сети по-прежнему 5432
+    volumes:
+      - postgres-changetracker-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d finstar_change_tracker"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks: [finstar]
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+    networks: [finstar]
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
+    restart: unless-stopped
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://localhost:9200/_cluster/health || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+    networks: [finstar]
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.15.3
+    restart: unless-stopped
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks: [finstar]
+
+  apm-server:
+    image: docker.elastic.co/apm/apm-server:8.15.3
+    restart: unless-stopped
+    command: >
+      apm-server -e
+      -E apm-server.host=0.0.0.0:8200
+      -E output.elasticsearch.hosts=["elasticsearch:9200"]
+      -E apm-server.auth.anonymous.enabled=true
+    ports:
+      - "8200:8200"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks: [finstar]
+
+  taskmanagement-api:
+    <<: *dotnet-common
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      args:
+        PROJECT: Finstar.TaskManagement.Api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__TaskManagementContext: "Host=postgres-taskmanagement;Port=5432;Database=finstar_taskmanagement;Username=postgres;Password=helloagain;Load Table Composites=true;Include Error Detail=true"
+      RabbitMqOptions__Host: rabbitmq
+      RabbitMqOptions__Port: "5672"
+      RabbitMqOptions__VirtualHost: "/"
+      RabbitMqOptions__Username: guest
+      RabbitMqOptions__Password: guest
+      ElasticApm__ServerUrl: http://apm-server:8200
+      ElasticApm__ServiceName: Finstar.TaskManagement.Api
+    ports:
+      - "5000:8080"
+    depends_on:
+      postgres-taskmanagement:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      apm-server:
+        condition: service_started
+
+  taskmanagement-changetracker:
+    <<: *dotnet-common
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      args:
+        PROJECT: Finstar.TaskManagement.ChangeTracker
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__TaskChangesContext: "Host=postgres-changetracker;Port=5432;Database=finstar_change_tracker;Username=postgres;Password=helloagain;Load Table Composites=true;Include Error Detail=true"
+      RabbitMqOptions__Host: rabbitmq
+      RabbitMqOptions__Port: "5672"
+      RabbitMqOptions__VirtualHost: "/"
+      RabbitMqOptions__Username: guest
+      RabbitMqOptions__Password: guest
+      ElasticApm__ServerUrl: http://apm-server:8200
+      ElasticApm__ServiceName: Finstar.TaskManagement.ChangeTracker
+    ports:
+      - "5001:8080"
+    depends_on:
+      postgres-changetracker:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      apm-server:
+        condition: service_started
+
+networks:
+  finstar:
+
+volumes:
+  postgres-taskmanagement-data:
+  postgres-changetracker-data:
+  rabbitmq-data:
+  es-data:

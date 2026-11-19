@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+
+        <PackageReference Include="Elastic.Apm.NetCoreAll" Version="1.36.0" />
+
+        <PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.5.11" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.5.11" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.15"/>
+        <PackageReference Include="Npgsql.OpenTelemetry" Version="10.0.3" />
+        <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.21.0" />
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.21.0" />
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.21.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.21.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.21.0-beta.1" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.21.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.3.1" />
+        <PackageReference Include="Asp.Versioning.Mvc" Version="10.2.1" />
+        <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer " Version="10.2.1" />
+        
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.15" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.15">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+        <PackageReference Include="Npgsql" Version="10.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Finstar.TaskManagement.ChangeTracker.Contracts\Finstar.TaskManagement.ChangeTracker.Contracts.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
+</Project>
