@@ -24,7 +24,7 @@ namespace Finstar.TaskManagement.ChangeTracker.Migrations
 
             modelBuilder.Entity("Finstar.TaskManagement.ChangeTracker.Dal.TaskChange", b =>
                 {
-                    b.Property<Guid>("TaskId")
+                    b.Property<Guid>("EventId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
@@ -36,7 +36,7 @@ namespace Finstar.TaskManagement.ChangeTracker.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("EventId")
+                    b.Property<Guid>("TaskId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Title")
@@ -46,7 +46,7 @@ namespace Finstar.TaskManagement.ChangeTracker.Migrations
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("TaskId");
+                    b.HasKey("EventId");
 
                     b.ToTable("TaskChanges");
                 });

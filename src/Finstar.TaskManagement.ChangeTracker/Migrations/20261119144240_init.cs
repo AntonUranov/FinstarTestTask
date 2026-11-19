@@ -15,16 +15,16 @@ namespace Finstar.TaskManagement.ChangeTracker.Migrations
                 name: "TaskChanges",
                 columns: table => new
                 {
+                    EventId = table.Column<Guid>(type: "uuid", nullable: false),
                     TaskId = table.Column<Guid>(type: "uuid", nullable: false),
                     ChangeType = table.Column<string>(type: "text", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    EventId = table.Column<Guid>(type: "uuid", nullable: false)
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TaskChanges", x => x.TaskId);
+                    table.PrimaryKey("PK_TaskChanges", x => x.EventId);
                 });
         }
 

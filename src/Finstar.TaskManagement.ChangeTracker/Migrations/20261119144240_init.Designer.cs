@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Finstar.TaskManagement.ChangeTracker.Migrations
 {
     [DbContext(typeof(TaskChangesContext))]
-    [Migration("20261119094438_init")]
+    [Migration("20261119144240_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -27,7 +27,7 @@ namespace Finstar.TaskManagement.ChangeTracker.Migrations
 
             modelBuilder.Entity("Finstar.TaskManagement.ChangeTracker.Dal.TaskChange", b =>
                 {
-                    b.Property<Guid>("TaskId")
+                    b.Property<Guid>("EventId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
@@ -39,7 +39,7 @@ namespace Finstar.TaskManagement.ChangeTracker.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("EventId")
+                    b.Property<Guid>("TaskId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Title")
@@ -49,7 +49,7 @@ namespace Finstar.TaskManagement.ChangeTracker.Migrations
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("TaskId");
+                    b.HasKey("EventId");
 
                     b.ToTable("TaskChanges");
                 });

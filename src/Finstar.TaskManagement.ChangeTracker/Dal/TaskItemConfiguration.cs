@@ -7,7 +7,7 @@ public class TaskChangeConfiguration : IEntityTypeConfiguration<TaskChange>
 {
     public void Configure(EntityTypeBuilder<TaskChange> builder)
     {
-        builder.HasKey(taskChange => taskChange.TaskId);
+        builder.HasKey(taskChange => taskChange.EventId);
         
         builder.Property(taskChange => taskChange.Title)
             .HasColumnType("text")
@@ -25,7 +25,7 @@ public class TaskChangeConfiguration : IEntityTypeConfiguration<TaskChange>
             .HasColumnType("timestamp with time zone")
             .IsRequired();
         
-        builder.Property(task => task.EventId)
+        builder.Property(task => task.TaskId)
             .HasColumnType("uuid")
             .IsRequired();
     }
